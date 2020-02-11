@@ -16,12 +16,12 @@ import (
 
 type ResponseError struct {
 	StatusCode int
-	RequestUrl *url.URL
+	Response   *url.URL
 }
 
 type InternalError struct {
 	StatusCode int
-	Message    string
+	Response   string
 }
 
 const ErrorMsg = "Internal Error. Please contact administrator for more details"
@@ -121,12 +121,15 @@ func perGameStats(w http.ResponseWriter, r *http.Request) {
 func home(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
-	w.Write([]byte(`{"message": "get called"}`))
+	w.Write([]byte(`{"message": "hello world"}`))
 }
 
 func main() {
 	r := mux.NewRouter()
+
 	r.HandleFunc("/", home).Methods(http.MethodGet)
-	r.HandleFunc("/{school}/{year}", perGameStats).Methods(http.MethodGet)
+
+	r.HandleFunc("/{school}/{year}/pergame", perGameStats).Methods(http.MethodGet)
+
 	log.Fatal(http.ListenAndServe(":8080", r))
 }

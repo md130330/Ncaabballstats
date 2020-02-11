@@ -52,6 +52,9 @@ func ReadCSV(path *string) ([]byte, string, error) {
 	content = content[1:]
 
 	var buffer bytes.Buffer
+	buffer.WriteString("{")
+	buffer.WriteString("\"StatusCode\": 200,")
+	buffer.WriteString("\"Response\":")
 	buffer.WriteString("[")
 	for i, d := range content {
 		buffer.WriteString("{")
@@ -80,6 +83,7 @@ func ReadCSV(path *string) ([]byte, string, error) {
 	}
 
 	buffer.WriteString(`]`)
+	buffer.WriteString(`}`)
 	rawMessage := json.RawMessage(buffer.String())
 	x, _ := json.MarshalIndent(rawMessage, "", "  ")
 	newFileName := filepath.Base(*path)
