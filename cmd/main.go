@@ -7,11 +7,11 @@ import (
 	log "github.com/golang/glog"
 	"github.com/gorilla/mux"
 	"github.com/microcosm-cc/bluemonday"
+	"ncaabballstats/pkg/csv-to-json"
 	"net/http"
 	"net/url"
 	"os"
 	"strings"
-	"web_scraper/csv-to-json"
 )
 
 type ResponseError struct {
