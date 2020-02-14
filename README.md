@@ -9,7 +9,7 @@ However, there actually isn't any API that gives you the information that you ne
 
 ## Setup
 
-To run locally, just run `go run cmd/main.go` which will start up a local server at `localhost:8080`
+To run locally, just run `go run cmd/ncaabballstats/main.go` which will start up a local server at `localhost:8080`
 
 ## Notes
 
@@ -81,3 +81,5 @@ Took `Ahmad-Magdy/CSV-To-JSON-Converter` and turned it into a pacakge
 * Add error codes for when user hits a non-existant URL route
 
 * Consider moving from REST API implementation to a GraphQL one
+
+
