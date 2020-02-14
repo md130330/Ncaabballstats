@@ -1,4 +1,4 @@
-module web_scraper
+module ncaabballstats
 
 go 1.13
 
