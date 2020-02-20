@@ -15,7 +15,7 @@ RUN go mod download
 COPY . ./
 
 # Build the binary.
-RUN CGO_ENABLED=0 GOOS=linux go build -v -o server
+RUN CGO_ENABLED=0 GOOS=linux go install ./...
 
 # Use the official Alpine image for a lean production container.
 # https://hub.docker.com/_/alpine
@@ -24,7 +24,7 @@ FROM alpine:3
 RUN apk add --no-cache ca-certificates
 
 # Copy the binary to the production image from the builder stage.
-COPY --from=builder /app/server /server
+COPY --from=builder /go/bin/ncaabballstats /ncaabballstats
 
 # Run the web service on container startup.
-CMD ["/server"]
+CMD ["/ncaabballstats"]
