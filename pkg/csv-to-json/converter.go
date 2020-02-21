@@ -5,8 +5,8 @@ import (
 	"encoding/csv"
 	"encoding/json"
 	"errors"
-	log "github.com/golang/glog"
 	"io/ioutil"
+	"log"
 	"os"
 	"path/filepath"
 	"strconv"
@@ -30,7 +30,7 @@ func Convert(path *string) (string, error) {
 func ReadCSV(path *string) ([]byte, string, error) {
 	csvFile, err := os.Open(*path)
 	if err != nil {
-		log.Info("The file is not found || wrong root")
+		log.Print("The file is not found || wrong root")
 		return nil, "", errors.New("error")
 	}
 	defer csvFile.Close()
@@ -39,7 +39,7 @@ func ReadCSV(path *string) ([]byte, string, error) {
 	content, _ := reader.ReadAll()
 
 	if len(content) < 1 {
-		log.Info("Something wrong, the file maybe empty or length of the lines are not the same")
+		log.Print("Something wrong, the file maybe empty or length of the lines are not the same")
 		return nil, "", errors.New("error")
 	}
 
