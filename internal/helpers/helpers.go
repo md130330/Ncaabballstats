@@ -23,8 +23,7 @@ func ShiftPath(p string) (head, tail string) {
 	return p[1:i], p[i:]
 }
 
-func Scrape(school string, year string, stat string) bool {
-	var failed bool
+func Scrape(school string, year string, stat string) (failed string) {
 
 	c := colly.NewCollector()
 
@@ -40,7 +39,8 @@ func Scrape(school string, year string, stat string) bool {
 		dir, err := os.Getwd()
 		if err != nil {
 			log.Print(err)
-			failed = true
+			failed = "internal"
+			return
 		}
 
 		e.DOM.Find("colgroup").Remove()
@@ -55,7 +55,8 @@ func Scrape(school string, year string, stat string) bool {
 			log.Print(f)
 			if err != nil {
 				log.Print(err)
-				failed = true
+				failed = "internal"
+				return
 			}
 			f = strings.Replace(f, "</t", "~</t", -1)
 			f = p.Sanitize(f)
@@ -71,7 +72,8 @@ func Scrape(school string, year string, stat string) bool {
 		file, err := os.Create(school + year + stat + ".csv")
 		if err != nil {
 			log.Print(err)
-			failed = true
+			failed = "internal"
+			return
 		}
 		defer file.Close()
 
@@ -81,7 +83,8 @@ func Scrape(school string, year string, stat string) bool {
 			err := writer.Write(value)
 			if err != nil {
 				log.Print(err)
-				failed = true
+				failed = "internal"
+				return
 			}
 			writer.Flush()
 		}
@@ -91,16 +94,18 @@ func Scrape(school string, year string, stat string) bool {
 		_, convertErr := converter.Convert(sPointer)
 		if convertErr != nil {
 			log.Print(convertErr)
-			failed = true
+			failed = "internal"
+			return
 		}
 	})
 
 	c.OnError(func(r *colly.Response, rErr error) {
 		log.Print(rErr)
-		failed = true
+		failed = "noResponse"
+		return
 	})
 
 	c.Visit("https://www.sports-reference.com/cbb/schools/" + school + "/" + year + ".html")
 
-	return failed
+	return
 }
