@@ -3,8 +3,8 @@ package helpers
 import (
 	"encoding/csv"
 	"github.com/gocolly/colly/v2"
+	log "github.com/golang/glog"
 	"github.com/microcosm-cc/bluemonday"
-	"log"
 	"ncaabballstats/pkg/csv-to-json"
 	"os"
 	"path"
@@ -27,7 +27,7 @@ func Scrape(school string, year string, stat string) (failed string) {
 
 	c := colly.NewCollector()
 
-	log.Print("div[id=div_" + stat + "]")
+	log.Info("div[id=div_" + stat + "]")
 
 	c.OnHTML("div[id=div_"+stat+"]", func(e *colly.HTMLElement) {
 
@@ -38,7 +38,7 @@ func Scrape(school string, year string, stat string) (failed string) {
 
 		dir, err := os.Getwd()
 		if err != nil {
-			log.Print(err)
+			log.Info(err)
 			failed = "internal"
 			return
 		}
@@ -52,9 +52,9 @@ func Scrape(school string, year string, stat string) (failed string) {
 
 		e.ForEach("tbody tr", func(_ int, el *colly.HTMLElement) {
 			f, err := el.DOM.Html()
-			log.Print(f)
+			log.Info(f)
 			if err != nil {
-				log.Print(err)
+				log.Info(err)
 				failed = "internal"
 				return
 			}
@@ -71,7 +71,7 @@ func Scrape(school string, year string, stat string) (failed string) {
 		})
 		file, err := os.Create(school + year + stat + ".csv")
 		if err != nil {
-			log.Print(err)
+			log.Info(err)
 			failed = "internal"
 			return
 		}
@@ -82,7 +82,7 @@ func Scrape(school string, year string, stat string) (failed string) {
 		for _, value := range table {
 			err := writer.Write(value)
 			if err != nil {
-				log.Print(err)
+				log.Info(err)
 				failed = "internal"
 				return
 			}
@@ -93,14 +93,14 @@ func Scrape(school string, year string, stat string) (failed string) {
 		sPointer := &s
 		_, convertErr := converter.Convert(sPointer)
 		if convertErr != nil {
-			log.Print(convertErr)
+			log.Info(convertErr)
 			failed = "internal"
 			return
 		}
 	})
 
 	c.OnError(func(r *colly.Response, rErr error) {
-		log.Print(rErr)
+		log.Info(rErr)
 		failed = "noResponse"
 		return
 	})
