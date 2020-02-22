@@ -1,9 +1,9 @@
 package handlers
 
 import (
+	log "github.com/golang/glog"
 	"github.com/shurcooL/github_flavored_markdown"
 	"io/ioutil"
-	"log"
 	"ncaabballstats/internal/errors"
 	"ncaabballstats/internal/helpers"
 	"net/http"
@@ -51,7 +51,7 @@ func (h *ApiHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	if r.URL.Path == "/" {
 		file, err := ioutil.ReadFile("api/PerGame.md")
 		if err != nil {
-			log.Print(err)
+			log.Info(err)
 			w.WriteHeader(http.StatusInternalServerError)
 			w.Write(errors.InternalErr())
 		}
@@ -125,7 +125,7 @@ func (h *StatHandler) Handler(school string, year string, stat string) http.Hand
 		}
 		dir, err := os.Getwd()
 		if err != nil {
-			log.Print(err)
+			log.Info(err)
 			w.WriteHeader(http.StatusInternalServerError)
 			w.Write(errors.InternalErr())
 			return

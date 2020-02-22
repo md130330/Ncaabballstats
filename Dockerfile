@@ -25,6 +25,8 @@ RUN apk add --no-cache ca-certificates
 
 # Copy the binary to the production image from the builder stage.
 COPY --from=builder /go/bin/ncaabballstats /ncaabballstats
+# Copy api docs to image
+COPY --from=builder /app/api /api
 
 # Run the web service on container startup.
 CMD ["/ncaabballstats"]
