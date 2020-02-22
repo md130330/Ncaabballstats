@@ -95,6 +95,7 @@ func ReadCSV(path *string) ([]byte, string, error) {
 // SaveFile Will Save the file, magic right?
 func SaveFile(myFile []byte, path string) error {
 	if err := ioutil.WriteFile(path, myFile, os.FileMode(0644)); err != nil {
+		log.Print(err)
 		return errors.New("error")
 	}
 	return nil

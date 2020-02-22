@@ -17,50 +17,7 @@ To run locally, just run `go run cmd/ncaabballstats/main.go` which will start up
 
 * You'll notice that when you're running locally, it creates a JSON and a CSV. The way the API currently works is that it transforms the HTML table to a CSV and then the CSV to a JSON and serves the JSON. The thinking behind this originally was to put the CSV data in storage / data lake to have a good idea of what teams people are currently interested in. As this currently runs on Cloud Run, there's no real issue of storage running out (that I'm aware of)
 
-## Example
-
-In order to get team data, team name must match what's given in sports-reference i.e. University of Texas at Austin is just texas but University of Nevada - Las Vegas is nevada-las-vegas. 
-
-Once you have the name just pass in the year and the string `pergame` to get data.
-
-Example URL : `localhost:8080/maryland-baltimore-county/2018/pergame`
-
-Example Retun: 
-```json
-{
-  "StatusCode": 200,
-  "Response": [
-    {
-      "Rank": 1,
-      "Player": "Jairus Lyles",
-      "Games": 33,
-      "Games Started": 32,
-      "Minutes Played Per Game": 34.9,
-      "Field Goals Per Game": 6.8,
-      "Field Goal Attempts Per Game": 15.5,
-      "Field Goal Percentage": 0.439,
-      "2-Point Field Goals Per Game": 4.5,
-      "2-Point Field Goal Attempts Per Game": 9.5,
-      "2-Point Field Goal Percentage": 0.471,
-      "3-Point Field Goals Per Game": 2.4,
-      "3-Point Field Goal Attempts Per Game": 6.1,
-      "3-Point Field Goal Percentage": 0.390,
-      "Free Throws Per Game": 4.2,
-      "Free Throw Attempts Per Game": 5.2,
-      "Free Throw Percentage": 0.792,
-      "Offensive Rebounds Per Game": 0.7,
-      "Defensive Rebounds Per Game": 4.8,
-      "Total Rebounds Per Game": 5.5,
-      "Assists Per Game": 3.5,
-      "Steals Per Game": 2.1,
-      "Blocks Per Game": 0.2,
-      "Turnovers Per Game": 3.1,
-      "Personal Fouls Per Game": 2.0,
-      "Points Per Game": 20.2
-    }
-  ]
-}
-```
+* In order to get team data, team name must match what's given in sports-reference i.e. University of Texas at Austin is just texas but University of Nevada - Las Vegas is nevada-las-vegas. 
 
 ## Credits
 
@@ -72,7 +29,7 @@ Took `Ahmad-Magdy/CSV-To-JSON-Converter` and turned it into a pacakge
 
 * Add test cases
 
-* Create API Documentation
+* Create API Documentation from comments rather than creating it manually
 
 * Add more endpoints to grab other data from team page
 
@@ -84,4 +41,4 @@ Took `Ahmad-Magdy/CSV-To-JSON-Converter` and turned it into a pacakge
 
 * Consider moving from REST API implementation to a GraphQL one
 
-
+* Add persistent logging

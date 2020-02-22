@@ -10,10 +10,10 @@ type Error struct {
 }
 
 const (
-	NilEndpointMsg    = "This endpoint does not exist on this API. Please refer to the API documentation."
+	NilEndpointMsg    = "This endpoint does not exist on this API. Please refer to the API documentation on /api."
 	InternalErrMsg    = "Internal Error. Please contact administrator for more details."
-	ResponseErrMsg    = "There is an error in the team or year. Please double check and try again."
-	InvalidYearErrMsg = "Please input a 4 digit year. Refer to the API documentation if you need more assistance."
+	ResponseErrMsg    = "There are no stats for the team, year combination given. Please check and make sure team and year were input correctly."
+	InvalidYearErrMsg = "Please input a 4 digit year. Refer to the API documentation on /api if you need more assistance."
 )
 
 func NilEndpoint() []byte {
