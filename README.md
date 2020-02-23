@@ -37,7 +37,7 @@ Took `Ahmad-Magdy/CSV-To-JSON-Converter` and turned it into a pacakge
 
 * Convert directly from HTML table to JSON data
 
-* Add error codes for when user hits a non-existant URL route
+* ~~Add error codes for when user hits a non-existant URL route~~
 
 * Consider moving from REST API implementation to a GraphQL one
 
